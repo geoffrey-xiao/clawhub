@@ -167,12 +167,12 @@ export const ApiV1SkillListResponseSchema = type({
     stats: 'unknown',
     createdAt: 'number',
     updatedAt: 'number',
-      latestVersion: type({
-        version: 'string',
-        createdAt: 'number',
-        changelog: 'string',
-        capabilities: '("shell"|"filesystem"|"network"|"browser"|"sessions"|"messaging"|"scheduling")[]?',
-      }).optional(),
+    latestVersion: type({
+      version: 'string',
+      createdAt: 'number',
+      changelog: 'string',
+      capabilities: '("shell"|"filesystem"|"network"|"browser"|"sessions"|"messaging"|"scheduling")[]?',
+    }).optional(),
   }).array(),
   nextCursor: 'string|null',
 })
