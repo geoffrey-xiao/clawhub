@@ -4,7 +4,7 @@ import type { MutationCtx, QueryCtx } from '../_generated/server'
 const DAY_MS = 24 * 60 * 60 * 1000
 export const TRENDING_DAYS = 7
 
-type LeaderboardEntry = {
+export type LeaderboardEntry = {
   skillId: Id<'skills'>
   score: number
   installs: number
@@ -19,6 +19,13 @@ export function getTrendingRange(now: number) {
   const endDay = toDayKey(now)
   const startDay = endDay - (TRENDING_DAYS - 1)
   return { startDay, endDay }
+}
+
+export async function queryDailyStats(ctx: QueryCtx | MutationCtx, day: number) {
+  return ctx.db
+    .query('skillDailyStats')
+    .withIndex('by_day', (q) => q.eq('day', day))
+    .collect()
 }
 
 export async function buildTrendingLeaderboard(
@@ -64,13 +71,13 @@ export async function buildTrendingLeaderboard(
   return { startDay, endDay, items }
 }
 
-function compareTrendingEntries(a: LeaderboardEntry, b: LeaderboardEntry) {
+export function compareTrendingEntries(a: LeaderboardEntry, b: LeaderboardEntry) {
   if (a.score !== b.score) return a.score - b.score
   if (a.downloads !== b.downloads) return a.downloads - b.downloads
   return 0
 }
 
-function topN<T>(entries: T[], limit: number, compare: (a: T, b: T) => number) {
+export function topN<T>(entries: T[], limit: number, compare: (a: T, b: T) => number) {
   if (entries.length <= limit) return entries.slice()
 
   const heap: T[] = []

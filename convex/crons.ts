@@ -13,7 +13,7 @@ crons.interval(
 crons.interval(
   'trending-leaderboard',
   { minutes: 60 },
-  internal.leaderboards.rebuildTrendingLeaderboardInternal,
+  internal.leaderboards.rebuildTrendingLeaderboardAction,
   { limit: 200 },
 )
 
