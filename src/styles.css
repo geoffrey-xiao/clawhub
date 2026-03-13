@@ -3994,13 +3994,6 @@ html.theme-transition::view-transition-new(theme) {
   text-align: left;
 }
 
-.analysis-detail:not(.is-open) .analysis-summary-text {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-
 .analysis-body {
   display: none;
   padding: 0 14px 14px;
