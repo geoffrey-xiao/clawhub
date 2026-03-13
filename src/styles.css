@@ -21,8 +21,6 @@
   --diff-added-strong: #6f8f2b;
   --diff-removed: #e47866;
   --diff-removed-strong: #b74434;
-  --diff-overview-added: #b8c98a;
-  --diff-overview-removed: #d9a39a;
   --diff-diagonal: #22222233;
   --gold: #e7bb67;
   --line: rgba(42, 31, 25, 0.14);
@@ -59,8 +57,6 @@
   --diff-added-strong: #b7e05a;
   --diff-removed: #ff7b72;
   --diff-removed-strong: #ff5f56;
-  --diff-overview-added: #8faa57;
-  --diff-overview-removed: #c97d76;
   --diff-diagonal: #cccccc33;
   --gold: #f3c97a;
   --line: rgba(247, 235, 225, 0.16);
@@ -2312,34 +2308,23 @@ code {
   background-color: rgba(107, 95, 86, 0.38) !important;
 }
 
+.diff-monaco .scrollbar.vertical,
 .diff-monaco .monaco-scrollable-element .scrollbar.vertical,
 .diff-monaco .invisible.scrollbar.vertical.fade {
   background: transparent !important;
 }
 
+.diff-monaco .scrollbar.vertical > .slider,
 .diff-monaco .monaco-scrollable-element .scrollbar.vertical > .slider,
-.diff-monaco .invisible.scrollbar.vertical.fade > .slider {
-  background: rgba(107, 95, 86, 0.28) !important;
-  background-color: rgba(107, 95, 86, 0.28) !important;
-  border-radius: 999px !important;
-}
-
+.diff-monaco .invisible.scrollbar.vertical.fade > .slider,
+.diff-monaco .scrollbar.vertical > .slider:hover,
 .diff-monaco .monaco-scrollable-element .scrollbar.vertical > .slider:hover,
-.diff-monaco .invisible.scrollbar.vertical.fade > .slider:hover {
-  background: rgba(107, 95, 86, 0.36) !important;
-  background-color: rgba(107, 95, 86, 0.36) !important;
-}
-
+.diff-monaco .invisible.scrollbar.vertical.fade > .slider:hover,
+.diff-monaco .scrollbar.vertical > .slider.active,
 .diff-monaco .monaco-scrollable-element .scrollbar.vertical > .slider.active,
 .diff-monaco .invisible.scrollbar.vertical.fade > .slider.active {
-  background: rgba(107, 95, 86, 0.44) !important;
-  background-color: rgba(107, 95, 86, 0.44) !important;
-}
-
-.diff-monaco .decorationsOverviewRuler,
-.diff-monaco canvas.decorationsOverviewRuler {
-  opacity: 0.42 !important;
-  filter: grayscale(1) saturate(0.1);
+  background: rgba(107, 95, 86, 0.32) !important;
+  background-color: rgba(107, 95, 86, 0.32) !important;
 }
 
 .diff-monaco .monaco-diff-editor .diffOverview canvas.diffOverviewRuler,
