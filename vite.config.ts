@@ -16,6 +16,8 @@ const convexReactPath = join(convexRoot, 'dist/esm/react/index.js')
 const convexBrowserPath = join(convexRoot, 'dist/esm/browser/index.js')
 const convexValuesPath = join(convexRoot, 'dist/esm/values/index.js')
 const convexAuthReactPath = require.resolve('@convex-dev/auth/react')
+const localConvexReactPath = join(process.cwd(), 'src/convex/react.ts')
+const localConvexAuthReactPath = join(process.cwd(), 'src/convex/auth.tsx')
 
 function handleRollupWarning(
   warning: { code?: string; message: string; id?: string },
@@ -44,14 +46,16 @@ const config = defineConfig({
   resolve: {
     dedupe: ['convex', '@convex-dev/auth', 'react', 'react-dom'],
     alias: {
-      'convex/react': convexReactPath,
+      'convex/react': localConvexReactPath,
+      'convex/react-real': convexReactPath,
       'convex/browser': convexBrowserPath,
       'convex/values': convexValuesPath,
-      '@convex-dev/auth/react': convexAuthReactPath,
+      '@convex-dev/auth/react': localConvexAuthReactPath,
+      '@convex-dev/auth/react-real': convexAuthReactPath,
     },
   },
   optimizeDeps: {
-    include: ['convex/react', 'convex/browser'],
+    include: ['convex/browser'],
   },
   plugins: [
     devtools(),
