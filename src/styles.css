@@ -2301,6 +2301,47 @@ code {
   background-color: rgba(107, 95, 86, 0.42) !important;
 }
 
+.diff-monaco .monaco-scrollable-element.modified-in-monaco-diff-editor .slider,
+.diff-monaco .monaco-scrollable-element.modified-in-monaco-diff-editor .slider.active {
+  background: rgba(107, 95, 86, 0.3) !important;
+  background-color: rgba(107, 95, 86, 0.3) !important;
+}
+
+.diff-monaco .monaco-scrollable-element.modified-in-monaco-diff-editor .slider:hover {
+  background: rgba(107, 95, 86, 0.38) !important;
+  background-color: rgba(107, 95, 86, 0.38) !important;
+}
+
+.diff-monaco .monaco-scrollable-element .scrollbar.vertical,
+.diff-monaco .invisible.scrollbar.vertical.fade {
+  background: transparent !important;
+}
+
+.diff-monaco .monaco-scrollable-element .scrollbar.vertical > .slider,
+.diff-monaco .invisible.scrollbar.vertical.fade > .slider {
+  background: rgba(107, 95, 86, 0.28) !important;
+  background-color: rgba(107, 95, 86, 0.28) !important;
+  border-radius: 999px !important;
+}
+
+.diff-monaco .monaco-scrollable-element .scrollbar.vertical > .slider:hover,
+.diff-monaco .invisible.scrollbar.vertical.fade > .slider:hover {
+  background: rgba(107, 95, 86, 0.36) !important;
+  background-color: rgba(107, 95, 86, 0.36) !important;
+}
+
+.diff-monaco .monaco-scrollable-element .scrollbar.vertical > .slider.active,
+.diff-monaco .invisible.scrollbar.vertical.fade > .slider.active {
+  background: rgba(107, 95, 86, 0.44) !important;
+  background-color: rgba(107, 95, 86, 0.44) !important;
+}
+
+.diff-monaco .decorationsOverviewRuler,
+.diff-monaco canvas.decorationsOverviewRuler {
+  opacity: 0.42 !important;
+  filter: grayscale(1) saturate(0.1);
+}
+
 .diff-monaco .monaco-diff-editor .diffOverview canvas.diffOverviewRuler,
 .diff-monaco .monaco-diff-editor .diffOverview canvas.original.diffOverviewRuler,
 .diff-monaco .monaco-diff-editor .diffOverview canvas.modified.diffOverviewRuler {
