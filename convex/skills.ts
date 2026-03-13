@@ -1006,6 +1006,56 @@ function toPublicSkillListVersion(
   }
 }
 
+function toPublicSkillVersion(
+  version: Doc<'skillVersions'> | null | undefined,
+): Doc<'skillVersions'> | null {
+  if (!version) return null
+  return {
+    _id: version._id,
+    _creationTime: version._creationTime,
+    skillId: version.skillId,
+    version: version.version,
+    fingerprint: version.fingerprint,
+    changelog: version.changelog,
+    changelogSource: version.changelogSource,
+    files: version.files.map((file) => ({
+      path: file.path,
+      size: file.size,
+      sha256: file.sha256,
+      contentType: file.contentType,
+    })),
+    parsed: version.parsed
+      ? {
+          license: version.parsed.license,
+          clawdis: version.parsed.clawdis,
+        }
+      : undefined,
+    createdBy: version.createdBy,
+    createdAt: version.createdAt,
+    softDeletedAt: version.softDeletedAt,
+    sha256hash: version.sha256hash,
+    vtAnalysis: version.vtAnalysis,
+    llmAnalysis: version.llmAnalysis,
+    staticScan: version.staticScan
+      ? {
+          status: version.staticScan.status,
+          reasonCodes: version.staticScan.reasonCodes,
+          findings: version.staticScan.findings.map((finding) => ({
+            code: finding.code,
+            severity: finding.severity,
+            file: finding.file,
+            line: finding.line,
+            message: finding.message,
+            evidence: '',
+          })),
+          summary: version.staticScan.summary,
+          engineVersion: version.staticScan.engineVersion,
+          checkedAt: version.staticScan.checkedAt,
+        }
+      : undefined,
+  } as Doc<'skillVersions'>
+}
+
 function toPublicSkillListVersionFromSummary(
   summary: NonNullable<Doc<'skills'>['latestVersionSummary']>,
   latestVersionId: Id<'skillVersions'> | undefined,
@@ -1154,9 +1204,9 @@ export const getBySlug = query({
     const userId = await getAuthUserId(ctx)
     const isOwner = Boolean(userId && userId === skill.ownerUserId)
 
-    const latestVersion = skill.latestVersionId
-      ? await ctx.db.get(skill.latestVersionId)
-      : null
+    const latestVersion = toPublicSkillVersion(
+      skill.latestVersionId ? await ctx.db.get(skill.latestVersionId) : null,
+    )
     const owner = toPublicUser(await ctx.db.get(skill.ownerUserId))
     const badges = await getSkillBadgeMap(ctx, skill._id)
 
@@ -1941,9 +1991,9 @@ export const listWithLatest = query({
     const items = await Promise.all(
       limited.map(async (skill) => ({
         skill: toPublicSkill(skill),
-        latestVersion: skill.latestVersionId
-          ? await ctx.db.get(skill.latestVersionId)
-          : null,
+        latestVersion: toPublicSkillVersion(
+          skill.latestVersionId ? await ctx.db.get(skill.latestVersionId) : null,
+        ),
       })),
     )
     return items.filter(
@@ -2471,11 +2521,12 @@ export const listVersions = query({
   args: { skillId: v.id('skills'), limit: v.optional(v.number()) },
   handler: async (ctx, args) => {
     const limit = args.limit ?? 20
-    return ctx.db
+    const versions = await ctx.db
       .query('skillVersions')
       .withIndex('by_skill', (q) => q.eq('skillId', args.skillId))
       .order('desc')
       .take(limit)
+    return versions.map((version) => toPublicSkillVersion(version)!)
   },
 })
 
@@ -2492,14 +2543,16 @@ export const listVersionsPage = query({
       .withIndex('by_skill', (q) => q.eq('skillId', args.skillId))
       .order('desc')
       .paginate({ cursor: args.cursor ?? null, numItems: limit })
-    const items = page.filter((version) => !version.softDeletedAt)
+    const items = page
+      .filter((version) => !version.softDeletedAt)
+      .map((version) => toPublicSkillVersion(version)!)
     return { items, nextCursor: isDone ? null : continueCursor }
   },
 })
 
 export const getVersionById = query({
   args: { versionId: v.id('skillVersions') },
-  handler: async (ctx, args) => ctx.db.get(args.versionId),
+  handler: async (ctx, args) => toPublicSkillVersion(await ctx.db.get(args.versionId)),
 })
 
 export const getVersionsByIdsInternal = internalQuery({
@@ -3816,12 +3869,13 @@ export const escalateByVtInternal = internalMutation({
 export const getVersionBySkillAndVersion = query({
   args: { skillId: v.id('skills'), version: v.string() },
   handler: async (ctx, args) => {
-    return ctx.db
+    const version = await ctx.db
       .query('skillVersions')
       .withIndex('by_skill_version', (q) =>
         q.eq('skillId', args.skillId).eq('version', args.version),
       )
       .unique()
+    return toPublicSkillVersion(version)
   },
 })
 
