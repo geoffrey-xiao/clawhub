@@ -186,6 +186,37 @@ const skillVersions = [
       },
     },
     sha256hash: makeHash('d'),
+    vtAnalysis: {
+      status: 'clean',
+      checkedAt: now - 1000 * 60 * 35,
+    },
+    llmAnalysis: {
+      status: 'clean',
+      verdict: 'benign',
+      confidence: 'medium',
+      summary:
+        'The mock package stays aligned with a Sonos control workflow, and nothing in the sample suggests hidden background execution or credential collection.',
+      dimensions: [
+        {
+          name: 'purpose',
+          label: 'Purpose alignment',
+          rating: 'ok',
+          detail: 'The files are focused on speaker control, room grouping, and command examples.',
+        },
+        {
+          name: 'local_state',
+          label: 'State changes',
+          rating: 'note',
+          detail: 'Grouping and playback commands change device state, but the sample does not introduce persistence beyond the documented CLI workflow.',
+        },
+      ],
+      guidance:
+        'Suitable for UI review and local mock testing. Verify host configuration before using against a real Sonos system.',
+      findings:
+        'Command examples match the declared purpose.\nNo downloader, shell bootstrapper, or secret prompt appears in the sample files.',
+      model: 'mock-openclaw-local',
+      checkedAt: now - 1000 * 60 * 28,
+    },
   },
   {
     _id: 'skillVersions:sonos-100' as Id<'skillVersions'>,
@@ -220,6 +251,62 @@ const skillVersions = [
         os: ['macos', 'linux', 'windows'],
       },
     },
+    sha256hash: makeHash('q'),
+    vtAnalysis: {
+      status: 'clean',
+      checkedAt: now - 1000 * 60 * 18,
+    },
+    llmAnalysis: {
+      status: 'clean',
+      verdict: 'benign',
+      confidence: 'high',
+      summary:
+        'The skill behaves like a repo-aware release helper, and the files stay consistent with that purpose; no hidden downloads, credential handling, or persistence mechanisms were found in this mock sample.',
+      dimensions: [
+        {
+          name: 'purpose',
+          label: 'Purpose alignment',
+          rating: 'ok',
+          detail: 'The files focus on release notes, rollout checklists, and stakeholder updates.',
+        },
+        {
+          name: 'network',
+          label: 'Network behavior',
+          rating: 'ok',
+          detail: 'No outbound network calls or download instructions appear in the shipped mock files.',
+        },
+        {
+          name: 'secrets',
+          label: 'Secrets handling',
+          rating: 'note',
+          detail: 'The templates mention rollout checks, but they do not request storing secrets inside repo files.',
+        },
+      ],
+      guidance:
+        'Reasonable to install for local testing. As usual, review the files before use and avoid placing secrets into generated release notes.',
+      findings:
+        'Template files are consistent with a release-assistant workflow.\nNo hidden executables or credential prompts were detected in the mock package.',
+      model: 'mock-openclaw-local',
+      checkedAt: now - 1000 * 60 * 12,
+    },
+    staticScan: {
+      status: 'suspicious',
+      reasonCodes: ['suspicious.env_credential_access'],
+      findings: [
+        {
+          code: 'suspicious.env_credential_access',
+          severity: 'critical',
+          file: 'templates/release.md',
+          line: 8,
+          message: 'Environment-style variable placeholder detected in release template.',
+          evidence: '${GITHUB_TOKEN}',
+        },
+      ],
+      summary:
+        'Mock static scan flagged one credential-like placeholder so the detail panel can be reviewed during local UI checks.',
+      engineVersion: 'mock-static-1',
+      checkedAt: now - 1000 * 60 * 10,
+    },
   },
   {
     _id: 'skillVersions:shipwright-200' as Id<'skillVersions'>,
@@ -247,6 +334,56 @@ const skillVersions = [
       { path: 'SKILL.md', size: 280, storageId: 'storage:briefsmith-skill', sha256: makeHash('i') },
       { path: 'prompts/kickoff.md', size: 190, storageId: 'storage:briefsmith-kickoff', sha256: makeHash('j') },
     ],
+    sha256hash: makeHash('r'),
+    vtAnalysis: {
+      status: 'suspicious',
+      checkedAt: now - 1000 * 60 * 22,
+    },
+    llmAnalysis: {
+      status: 'suspicious',
+      verdict: 'suspicious',
+      confidence: 'medium',
+      summary:
+        'This mock example is intentionally marked suspicious so you can compare a cautionary one-line summary against the benign samples.',
+      dimensions: [
+        {
+          name: 'scope',
+          label: 'Scope consistency',
+          rating: 'concern',
+          detail: 'The prompt file is brief-focused, but this mock record is intentionally flagged so the suspicious presentation can be reviewed in the UI.',
+        },
+        {
+          name: 'operator_review',
+          label: 'Manual review need',
+          rating: 'note',
+          detail: 'The mocked status asks for extra review before installation so you can check the expanded detail treatment.',
+        },
+      ],
+      guidance:
+        'Use this page for layout checks only. Treat the suspicious label as mock UI data rather than a real security verdict.',
+      findings:
+        'Mock evaluator inserted a cautionary verdict for UI testing.\nNo real external scan was performed for this local-only sample.',
+      model: 'mock-openclaw-local',
+      checkedAt: now - 1000 * 60 * 18,
+    },
+    staticScan: {
+      status: 'suspicious',
+      reasonCodes: ['suspicious.prompt_injection_surface'],
+      findings: [
+        {
+          code: 'suspicious.prompt_injection_surface',
+          severity: 'warn',
+          file: 'prompts/kickoff.md',
+          line: 1,
+          message: 'Prompt file accepts broad free-form instructions in this mock sample.',
+          evidence: 'Summarize the request, the audience, and the decisions needed.',
+        },
+      ],
+      summary:
+        'Mock static scan adds a warning-level finding so the suspicious-state panel can be tested without touching live data.',
+      engineVersion: 'mock-static-1',
+      checkedAt: now - 1000 * 60 * 16,
+    },
   },
 ] as Doc<'skillVersions'>[]
 
