@@ -411,6 +411,7 @@ function buildDiffOptions(viewMode: 'split' | 'inline'): DiffEditorProps['option
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
     overviewRulerBorder: false,
+    renderOverviewRuler: true,
     renderIndicators: true,
     diffAlgorithm: 'advanced',
     fontFamily: 'var(--font-mono)',
@@ -433,6 +434,10 @@ function applyMonacoTheme(monaco: NonNullable<ReturnType<typeof useMonaco>>) {
   const diffRemoved = styles.getPropertyValue('--diff-removed').trim() || '#e47866'
   const diffRemovedStrong =
     styles.getPropertyValue('--diff-removed-strong').trim() || accent
+  const diffOverviewAdded =
+    styles.getPropertyValue('--diff-overview-added').trim() || diffAdded
+  const diffOverviewRemoved =
+    styles.getPropertyValue('--diff-overview-removed').trim() || diffRemoved
   const diffDiagonal = styles.getPropertyValue('--diff-diagonal').trim() || '#22222233'
   const background = surface
   const gutter = surfaceMuted
@@ -445,6 +450,8 @@ function applyMonacoTheme(monaco: NonNullable<ReturnType<typeof useMonaco>>) {
   const diffRemovedBg = withAlpha(diffRemoved, isDark ? 0.22 : 0.2)
   const diffRemovedText = withAlpha(diffRemovedStrong, isDark ? 0.2 : 0.22)
   const diffRemovedBorder = withAlpha(diffRemovedStrong, isDark ? 0.45 : 0.5)
+  const diffOverviewInserted = withAlpha(diffOverviewAdded, isDark ? 0.28 : 0.3)
+  const diffOverviewDeleted = withAlpha(diffOverviewRemoved, isDark ? 0.28 : 0.3)
 
   monaco.editor.defineTheme(`clawhub-${isDark ? 'dark' : 'light'}`, {
     base,
@@ -472,8 +479,8 @@ function applyMonacoTheme(monaco: NonNullable<ReturnType<typeof useMonaco>>) {
       'diffEditor.removedTextBorder': diffRemovedBorder,
       'diffEditorGutter.insertedLineBackground': diffInserted,
       'diffEditorGutter.removedLineBackground': diffRemovedBg,
-      'diffEditorOverview.insertedForeground': diffInsertedBorder,
-      'diffEditorOverview.removedForeground': diffRemovedBorder,
+      'diffEditorOverview.insertedForeground': diffOverviewInserted,
+      'diffEditorOverview.removedForeground': diffOverviewDeleted,
       'diffEditor.diagonalFill': diffDiagonal,
       'diffEditor.border': line,
       'scrollbarSlider.background': toRgba(inkSoft, 0.15),
