@@ -211,8 +211,9 @@ const skillVersions = [
     changelog: 'Refines changelog drafting and adds rollout checklists.',
     changelogSource: 'auto',
     files: [
-      { path: 'SKILL.md', size: 388, storageId: 'storage:shipwright-skill', sha256: makeHash('f') },
-      { path: 'templates/release.md', size: 221, storageId: 'storage:shipwright-template', sha256: makeHash('g') },
+      { path: 'SKILL.md', size: 1120, storageId: 'storage:shipwright-skill', sha256: makeHash('f') },
+      { path: 'templates/release.md', size: 640, storageId: 'storage:shipwright-template', sha256: makeHash('g') },
+      { path: 'playbooks/rollout.md', size: 462, storageId: 'storage:shipwright-rollout', sha256: makeHash('n') },
     ],
     parsed: {
       clawdis: {
@@ -228,7 +229,11 @@ const skillVersions = [
     createdAt: now - 1000 * 60 * 60 * 24 * 10,
     changelog: 'Major rewrite for faster release preparation.',
     changelogSource: 'user',
-    files: [{ path: 'SKILL.md', size: 340, storageId: 'storage:shipwright-200', sha256: makeHash('h') }],
+    files: [
+      { path: 'SKILL.md', size: 860, storageId: 'storage:shipwright-200', sha256: makeHash('h') },
+      { path: 'templates/release.md', size: 498, storageId: 'storage:shipwright-200-template', sha256: makeHash('o') },
+      { path: 'notes/launch-checklist.md', size: 304, storageId: 'storage:shipwright-200-checklist', sha256: makeHash('p') },
+    ],
   },
   {
     _id: 'skillVersions:briefsmith-100' as Id<'skillVersions'>,
@@ -330,10 +335,29 @@ description: Repo-aware release assistant.
 # Shipwright
 
 Turn commits into release notes, rollout steps, and stakeholder updates.
+
+## What changed in 2.0.1
+
+- Adds a stronger release summary template with launch context.
+- Adds rollout guidance with owners, checkpoints, and rollback notes.
+- Tightens wording for external stakeholder updates.
+
+## Operating mode
+
+1. Read the repo diff and PR metadata first.
+2. Group changes into customer-facing, internal, and risk items.
+3. Draft the release note before writing rollout tasks.
+4. Call out unknowns explicitly instead of smoothing them over.
 `,
   'skillVersions:shipwright-200': `# Shipwright
 
 Release prep for repos that need crisp summaries and checklists.
+
+## Operating mode
+
+1. Review commits.
+2. Draft release notes.
+3. Write a short rollout checklist.
 `,
   'skillVersions:briefsmith-100': `# Briefsmith
 
@@ -348,8 +372,85 @@ const skillFiles: Record<string, Record<string, { text: string; size: number; sh
     'examples/living-room.txt': { text: 'group living-room kitchen\nplay jazz favorites\n', size: 144, sha256: makeHash('c') },
   },
   'skillVersions:shipwright-201': {
-    'SKILL.md': { text: skillReadmes['skillVersions:shipwright-201'], size: 388, sha256: makeHash('f') },
-    'templates/release.md': { text: '## Summary\n\n## Risks\n\n## Rollout\n', size: 221, sha256: makeHash('g') },
+    'SKILL.md': { text: skillReadmes['skillVersions:shipwright-201'], size: 1120, sha256: makeHash('f') },
+    'templates/release.md': {
+      text: `## Summary
+
+- What shipped
+- Why it matters
+- Who should care
+
+## Customer impact
+
+- New behavior
+- Migration notes
+- Support guidance
+
+## Risks
+
+- Deployment risk
+- Product risk
+- Communication risk
+
+## Rollout
+
+1. Deploy backend
+2. Verify logs and key metrics
+3. Announce externally
+`,
+      size: 640,
+      sha256: makeHash('g'),
+    },
+    'playbooks/rollout.md': {
+      text: `# Rollout Playbook
+
+## Preconditions
+
+- Release note approved
+- Owner assigned
+- Rollback plan documented
+
+## Verification
+
+1. Check error rate
+2. Confirm queue drains
+3. Validate webhook traffic
+
+## Rollback
+
+- Revert the release tag
+- Disable the feature flag
+- Post status update in #launches
+`,
+      size: 462,
+      sha256: makeHash('n'),
+    },
+  },
+  'skillVersions:shipwright-200': {
+    'SKILL.md': { text: skillReadmes['skillVersions:shipwright-200'], size: 860, sha256: makeHash('h') },
+    'templates/release.md': {
+      text: `## Summary
+
+## Risks
+
+## Rollout
+
+- Ship to production
+- Check the dashboard
+`,
+      size: 498,
+      sha256: makeHash('o'),
+    },
+    'notes/launch-checklist.md': {
+      text: `# Launch Checklist
+
+- Tag the release
+- Ship the build
+- Paste a short note in chat
+`,
+      size: 304,
+      sha256: makeHash('p'),
+    },
   },
   'skillVersions:briefsmith-100': {
     'SKILL.md': { text: skillReadmes['skillVersions:briefsmith-100'], size: 280, sha256: makeHash('i') },

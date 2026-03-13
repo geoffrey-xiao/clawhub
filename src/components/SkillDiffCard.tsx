@@ -240,6 +240,7 @@ export function SkillDiffCard({ skill, versions, variant = 'card' }: SkillDiffCa
   const diffUnavailable = versions.length < 2
   const selectionReady = Boolean(leftVersionId && rightVersionId)
   const fileSelected = Boolean(selectedItem)
+  const diffOptions = useMemo(() => buildDiffOptions(viewMode), [viewMode])
 
   const containerClass = variant === 'card' ? 'card diff-card' : 'diff-card diff-card-embedded'
 
@@ -357,12 +358,13 @@ export function SkillDiffCard({ skill, versions, variant = 'card' }: SkillDiffCa
           ) : (
             <ClientOnly fallback={<div className="diff-empty">Preparing diff…</div>}>
               <DiffEditor
+                key={`diff-${viewMode}`}
                 className="diff-monaco"
                 original={leftText}
                 modified={rightText}
                 theme={getMonacoThemeName()}
                 loading={<div className="diff-empty">Loading diff…</div>}
-                options={buildDiffOptions(viewMode)}
+                options={diffOptions}
               />
               {isLoading ? <div className="diff-loading">Loading…</div> : null}
             </ClientOnly>
@@ -404,7 +406,7 @@ function buildDiffOptions(viewMode: 'split' | 'inline'): DiffEditorProps['option
   return {
     readOnly: true,
     renderSideBySide: viewMode === 'split',
-    renderSideBySideInlineBreakpoint: 860,
+    useInlineViewWhenSpaceIsLimited: false,
     wordWrap: 'on',
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
