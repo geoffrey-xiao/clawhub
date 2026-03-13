@@ -245,6 +245,15 @@ const skillVersions = [
       { path: 'SKILL.md', size: 1120, storageId: 'storage:shipwright-skill', sha256: makeHash('f') },
       { path: 'templates/release.md', size: 640, storageId: 'storage:shipwright-template', sha256: makeHash('g') },
       { path: 'playbooks/rollout.md', size: 462, storageId: 'storage:shipwright-rollout', sha256: makeHash('n') },
+      { path: 'templates/internal.md', size: 384, storageId: 'storage:shipwright-internal', sha256: makeHash('s') },
+      { path: 'templates/status-page.md', size: 356, storageId: 'storage:shipwright-status', sha256: makeHash('t') },
+      { path: 'playbooks/rollback.md', size: 414, storageId: 'storage:shipwright-rollback', sha256: makeHash('u') },
+      { path: 'playbooks/support-handoff.md', size: 338, storageId: 'storage:shipwright-support', sha256: makeHash('v') },
+      { path: 'checklists/launch-day.md', size: 296, storageId: 'storage:shipwright-launch', sha256: makeHash('w') },
+      { path: 'checklists/post-launch.md', size: 318, storageId: 'storage:shipwright-post-launch', sha256: makeHash('x') },
+      { path: 'comms/customer-email.md', size: 344, storageId: 'storage:shipwright-customer-email', sha256: makeHash('y') },
+      { path: 'comms/internal-brief.md', size: 332, storageId: 'storage:shipwright-internal-brief', sha256: makeHash('z') },
+      { path: 'metrics/launch-dashboard.md', size: 288, storageId: 'storage:shipwright-dashboard', sha256: makeHash('aa') },
     ],
     parsed: {
       clawdis: {
@@ -538,6 +547,37 @@ const skillFiles: Record<string, Record<string, { text: string; size: number; sh
       size: 640,
       sha256: makeHash('g'),
     },
+    'templates/internal.md': {
+      text: `## Internal Release Brief
+
+- Launch owner
+- Decision log
+- Feature flag state
+
+## Escalations
+
+- Who approves rollback
+- Who owns support comms
+- Who monitors core metrics
+`,
+      size: 384,
+      sha256: makeHash('s'),
+    },
+    'templates/status-page.md': {
+      text: `## Status Page Draft
+
+- What changed
+- Affected audience
+- Current impact
+
+## Next update
+
+- Time of next checkpoint
+- Link to incident or launch room
+`,
+      size: 356,
+      sha256: makeHash('t'),
+    },
     'playbooks/rollout.md': {
       text: `# Rollout Playbook
 
@@ -561,6 +601,89 @@ const skillFiles: Record<string, Record<string, { text: string; size: number; sh
 `,
       size: 462,
       sha256: makeHash('n'),
+    },
+    'playbooks/rollback.md': {
+      text: `# Rollback Playbook
+
+## Trigger conditions
+
+- Error budget exceeded
+- Queue backlog growing
+- Critical user flow regression
+
+## Actions
+
+1. Disable the feature flag
+2. Redeploy the previous build
+3. Post rollback notice
+`,
+      size: 414,
+      sha256: makeHash('u'),
+    },
+    'playbooks/support-handoff.md': {
+      text: `# Support Handoff
+
+- Expected tickets
+- Safe customer guidance
+- Known workarounds
+- Escalation owner
+`,
+      size: 338,
+      sha256: makeHash('v'),
+    },
+    'checklists/launch-day.md': {
+      text: `# Launch Day Checklist
+
+- Confirm owners are online
+- Verify dashboards are green
+- Confirm announcement timing
+`,
+      size: 296,
+      sha256: makeHash('w'),
+    },
+    'checklists/post-launch.md': {
+      text: `# Post-launch Checklist
+
+- Capture metrics snapshot
+- Note follow-up bugs
+- Close launch room when stable
+`,
+      size: 318,
+      sha256: makeHash('x'),
+    },
+    'comms/customer-email.md': {
+      text: `## Customer Email
+
+Subject: Release update
+
+- What changed
+- Any required customer action
+- Where to send questions
+`,
+      size: 344,
+      sha256: makeHash('y'),
+    },
+    'comms/internal-brief.md': {
+      text: `## Internal Brief
+
+- Scope
+- Risks
+- Owner contacts
+- Rollback posture
+`,
+      size: 332,
+      sha256: makeHash('z'),
+    },
+    'metrics/launch-dashboard.md': {
+      text: `# Launch Dashboard
+
+- Error rate
+- Queue depth
+- API p95
+- Conversion guardrail
+`,
+      size: 288,
+      sha256: makeHash('aa'),
     },
   },
   'skillVersions:shipwright-200': {
