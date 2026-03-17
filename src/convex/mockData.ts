@@ -93,7 +93,78 @@ const soulUser = {
   bio: 'Shares reusable SOUL bundles.',
 } as unknown as PublicUser
 
-const mockUsers = [demoUser, maintainerUser, partnerUser, soulUser]
+const asleepUser = {
+  _id: 'users:asleep123' as Id<'users'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 260,
+  handle: 'Asleep123',
+  name: 'Asleep123',
+  displayName: 'Asleep123',
+  image: 'https://avatars.githubusercontent.com/u/124599?v=4',
+  bio: 'Builds calendar and workflow integrations.',
+} as unknown as PublicUser
+
+const rhysUser = {
+  _id: 'users:rhys' as Id<'users'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 190,
+  handle: 'RhysSullivan',
+  name: 'Rhys Sullivan',
+  displayName: 'Rhys Sullivan',
+  image: 'https://avatars.githubusercontent.com/u/221675?v=4',
+  bio: 'Maintains community-search and knowledge retrieval tools.',
+} as unknown as PublicUser
+
+const oswalUser = {
+  _id: 'users:oswal' as Id<'users'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 170,
+  handle: 'oswalpalash',
+  name: 'Oswal Palash',
+  displayName: 'Oswal Palash',
+  image: 'https://avatars.githubusercontent.com/u/406364?v=4',
+  bio: 'Focuses on knowledge graphs, retrieval, and memory systems.',
+} as unknown as PublicUser
+
+const ivanUser = {
+  _id: 'users:ivan' as Id<'users'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 165,
+  handle: 'ivangdavila',
+  name: 'Ivan Davila',
+  displayName: 'Ivan Davila',
+  image: 'https://avatars.githubusercontent.com/u/583231?v=4',
+  bio: 'Publishes agent autonomy and self-improvement workflows.',
+} as unknown as PublicUser
+
+const flyUser = {
+  _id: 'users:fly' as Id<'users'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 155,
+  handle: 'fly0pants',
+  name: 'fly0pants',
+  displayName: 'fly0pants',
+  image: 'https://avatars.githubusercontent.com/u/913758?v=4',
+  bio: 'Builds growth, ad analytics, and acquisition tooling.',
+} as unknown as PublicUser
+
+const ideUser = {
+  _id: 'users:ide' as Id<'users'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 145,
+  handle: 'ide-rea',
+  name: 'ide-rea',
+  displayName: 'ide-rea',
+  image: 'https://avatars.githubusercontent.com/u/29600?v=4',
+  bio: 'Ships search and information-retrieval skills.',
+} as unknown as PublicUser
+
+const mockUsers = [
+  demoUser,
+  maintainerUser,
+  partnerUser,
+  soulUser,
+  asleepUser,
+  rhysUser,
+  oswalUser,
+  ivanUser,
+  flyUser,
+  ideUser,
+]
 
 const skillA = {
   _id: 'skills:blogwatcher' as Id<'skills'>,
@@ -159,7 +230,208 @@ const skillC = {
   updatedAt: now - 1000 * 60 * 60 * 24 * 5,
 } as unknown as PublicSkill
 
-const mockSkills = [skillA, skillB, skillC]
+const skillD = {
+  _id: 'skills:trello' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 28,
+  slug: 'trello',
+  displayName: 'Trello',
+  summary: 'Manage Trello boards, lists, and cards via the Trello REST API.',
+  ownerUserId: maintainerUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:trello-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:trello-100' as Id<'skillVersions'> },
+  badges: {
+    highlighted: { byUserId: demoUser._id, at: now - 1000 * 60 * 60 * 8 },
+  },
+  stats: makeSkillStats(26500, 107, 1, 9200),
+  createdAt: now - 1000 * 60 * 60 * 24 * 28,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 2,
+} as unknown as PublicSkill
+
+const skillE = {
+  _id: 'skills:slack' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 30,
+  slug: 'slack',
+  displayName: 'Slack',
+  summary:
+    'Use when you need to control Slack from Clawdbot via the Slack tool, including reacting to messages, posting updates, and triaging threads.',
+  ownerUserId: maintainerUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:slack-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:slack-100' as Id<'skillVersions'> },
+  badges: {
+    highlighted: { byUserId: demoUser._id, at: now - 1000 * 60 * 60 * 7 },
+  },
+  stats: makeSkillStats(28500, 93, 1, 10000),
+  createdAt: now - 1000 * 60 * 60 * 24 * 30,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 3,
+} as unknown as PublicSkill
+
+const skillF = {
+  _id: 'skills:caldav-calendar' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 26,
+  slug: 'caldav-calendar',
+  displayName: 'Caldav Calendar',
+  summary:
+    'Sync and query CalDAV calendars (iCloud, Google, Fastmail, Nextcloud, etc.) using a local calendar bridge.',
+  ownerUserId: asleepUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:caldav-calendar-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:caldav-calendar-100' as Id<'skillVersions'> },
+  badges: {
+    highlighted: { byUserId: demoUser._id, at: now - 1000 * 60 * 60 * 6 },
+  },
+  stats: makeSkillStats(19900, 175, 1, 7000),
+  createdAt: now - 1000 * 60 * 60 * 24 * 26,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 4,
+} as unknown as PublicSkill
+
+const skillG = {
+  _id: 'skills:answer-overflow' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 24,
+  slug: 'answer-overflow',
+  displayName: 'Answer Overflow',
+  summary:
+    'Search indexed Discord community discussions via Answer Overflow. Find solutions, examples, and prior decisions quickly.',
+  ownerUserId: rhysUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:answer-overflow-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:answer-overflow-100' as Id<'skillVersions'> },
+  badges: {
+    highlighted: { byUserId: demoUser._id, at: now - 1000 * 60 * 60 * 5 },
+  },
+  stats: makeSkillStats(12600, 123, 1, 4800),
+  createdAt: now - 1000 * 60 * 60 * 24 * 24,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 6,
+} as unknown as PublicSkill
+
+const skillH = {
+  _id: 'skills:ontology' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 42,
+  slug: 'ontology',
+  displayName: 'ontology',
+  summary:
+    'Typed knowledge graph for structured agent memory and composable skills. Use when the agent needs durable entities, relations, and retrieval.',
+  ownerUserId: oswalUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:ontology-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:ontology-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(113000, 314, 1, 37000),
+  createdAt: now - 1000 * 60 * 60 * 24 * 42,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 3,
+} as unknown as PublicSkill
+
+const skillI = {
+  _id: 'skills:self-improving-proactive-agent' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 33,
+  slug: 'self-improving-proactive-agent',
+  displayName: 'Self-Improving + Proactive Agent',
+  summary:
+    'Self-reflection + Self-criticism + Self-learning + Self-organizing memory. Agent evaluates its own work and proposes next steps.',
+  ownerUserId: ivanUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:self-improving-proactive-agent-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:self-improving-proactive-agent-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(82200, 432, 1, 28800),
+  createdAt: now - 1000 * 60 * 60 * 24 * 33,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 2,
+} as unknown as PublicSkill
+
+const skillJ = {
+  _id: 'skills:admapix' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 29,
+  slug: 'admapix',
+  displayName: 'AdMapix',
+  summary:
+    'Ad intelligence and app analytics assistant. Search ad creatives, analyze apps, view rankings, and track competitor motion.',
+  ownerUserId: flyUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:admapix-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:admapix-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(63300, 112, 1, 22600),
+  createdAt: now - 1000 * 60 * 60 * 24 * 29,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 5,
+} as unknown as PublicSkill
+
+const skillK = {
+  _id: 'skills:obsidian' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 36,
+  slug: 'obsidian',
+  displayName: 'Obsidian',
+  summary:
+    'Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.',
+  ownerUserId: maintainerUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:obsidian-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:obsidian-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(54800, 216, 1, 19200),
+  createdAt: now - 1000 * 60 * 60 * 24 * 36,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 2,
+} as unknown as PublicSkill
+
+const skillL = {
+  _id: 'skills:nano-banana-pro' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 18,
+  slug: 'nano-banana-pro',
+  displayName: 'Nano Banana Pro',
+  summary:
+    'Generate and edit images with Nano Banana Pro (Gemini 3 Pro Image). Use for image create/modify flows and visual iteration.',
+  ownerUserId: maintainerUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:nano-banana-pro-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:nano-banana-pro-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(54400, 216, 1, 18800),
+  createdAt: now - 1000 * 60 * 60 * 24 * 18,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 1,
+} as unknown as PublicSkill
+
+const skillM = {
+  _id: 'skills:baidu-web-search' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 21,
+  slug: 'baidu-web-search',
+  displayName: 'baidu web search',
+  summary:
+    'Search the web using Baidu AI Search Engine (BDSE). Use for live information, documentation, or market discovery.',
+  ownerUserId: ideUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:baidu-web-search-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:baidu-web-search-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(47300, 124, 1, 16500),
+  createdAt: now - 1000 * 60 * 60 * 24 * 21,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 2,
+} as unknown as PublicSkill
+
+const mockSkills = [
+  skillA,
+  skillB,
+  skillC,
+  skillD,
+  skillE,
+  skillF,
+  skillG,
+  skillH,
+  skillI,
+  skillJ,
+  skillK,
+  skillL,
+  skillM,
+]
 
 const skillVersions = [
   {
@@ -314,6 +586,121 @@ const skillVersions = [
       checkedAt: now - 1000 * 60 * 18,
     },
   },
+  {
+    _id: 'skillVersions:trello-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 2,
+    skillId: skillD._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 2,
+    changelog: 'Initial Trello workflow release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 340, storageId: 'storage:trello-skill', sha256: makeHash('ta') }],
+  },
+  {
+    _id: 'skillVersions:slack-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 3,
+    skillId: skillE._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 3,
+    changelog: 'Initial Slack operations release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 396, storageId: 'storage:slack-skill', sha256: makeHash('tb') }],
+  },
+  {
+    _id: 'skillVersions:caldav-calendar-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 4,
+    skillId: skillF._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 4,
+    changelog: 'Initial CalDAV calendar release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 364, storageId: 'storage:caldav-skill', sha256: makeHash('tc') }],
+    parsed: {
+      clawdis: {
+        os: ['macos', 'linux'],
+      },
+    },
+  },
+  {
+    _id: 'skillVersions:answer-overflow-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 6,
+    skillId: skillG._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 6,
+    changelog: 'Initial Answer Overflow search release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 352, storageId: 'storage:answer-overflow-skill', sha256: makeHash('td') }],
+  },
+  {
+    _id: 'skillVersions:ontology-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 3,
+    skillId: skillH._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 3,
+    changelog: 'Initial ontology memory release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 388, storageId: 'storage:ontology-skill', sha256: makeHash('te') }],
+  },
+  {
+    _id: 'skillVersions:self-improving-proactive-agent-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 2,
+    skillId: skillI._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 2,
+    changelog: 'Initial proactive-agent release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 436, storageId: 'storage:self-improving-skill', sha256: makeHash('tf') }],
+    parsed: {
+      clawdis: {
+        os: ['linux', 'macos', 'windows'],
+      },
+    },
+  },
+  {
+    _id: 'skillVersions:admapix-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 5,
+    skillId: skillJ._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 5,
+    changelog: 'Initial AdMapix release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 368, storageId: 'storage:admapix-skill', sha256: makeHash('tg') }],
+  },
+  {
+    _id: 'skillVersions:obsidian-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 2,
+    skillId: skillK._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 2,
+    changelog: 'Initial Obsidian workflow release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 332, storageId: 'storage:obsidian-skill', sha256: makeHash('th') }],
+    parsed: {
+      clawdis: {
+        os: ['macos', 'linux', 'windows'],
+      },
+    },
+  },
+  {
+    _id: 'skillVersions:nano-banana-pro-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24,
+    skillId: skillL._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24,
+    changelog: 'Initial Nano Banana Pro image release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 344, storageId: 'storage:nano-banana-skill', sha256: makeHash('ti') }],
+  },
+  {
+    _id: 'skillVersions:baidu-web-search-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 2,
+    skillId: skillM._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 2,
+    changelog: 'Initial Baidu web search release.',
+    changelogSource: 'user',
+    files: [{ path: 'SKILL.md', size: 330, storageId: 'storage:baidu-skill', sha256: makeHash('tj') }],
+  },
 ] as Doc<'skillVersions'>[]
 
 const soulA = {
@@ -408,6 +795,16 @@ Turn commits into release notes, rollout steps, and stakeholder updates.
 `,
   'skillVersions:shipwright-200': '# Shipwright\n\nRelease prep for repos that need crisp summaries and checklists.\n',
   'skillVersions:briefsmith-100': '# Briefsmith\n\nTake scattered notes and output concise execution briefs.\n',
+  'skillVersions:trello-100': '# Trello\n\nManage boards, lists, and cards with a clear workflow-first prompt contract.\n',
+  'skillVersions:slack-100': '# Slack\n\nOperate Slack channels, messages, reactions, and triage routines from one skill.\n',
+  'skillVersions:caldav-calendar-100': '# Caldav Calendar\n\nSync and query CalDAV calendars across common providers.\n',
+  'skillVersions:answer-overflow-100': '# Answer Overflow\n\nSearch Answer Overflow indexes to surface prior Discord discussions and fixes.\n',
+  'skillVersions:ontology-100': '# ontology\n\nUse a typed knowledge graph for agent memory, retrieval, and reusable entities.\n',
+  'skillVersions:self-improving-proactive-agent-100': '# Self-Improving + Proactive Agent\n\nReflect, critique, and propose better next steps before the user asks.\n',
+  'skillVersions:admapix-100': '# AdMapix\n\nInspect ad creatives, app rankings, and competitor acquisition motion.\n',
+  'skillVersions:obsidian-100': '# Obsidian\n\nRead and update local Markdown notes in an Obsidian vault.\n',
+  'skillVersions:nano-banana-pro-100': '# Nano Banana Pro\n\nGenerate and edit images through a structured prompt workflow.\n',
+  'skillVersions:baidu-web-search-100': '# baidu web search\n\nUse Baidu AI Search Engine for current web information and references.\n',
 }
 
 const skillFiles: Record<string, Record<string, { text: string; size: number; sha256: string }>> = {
@@ -451,6 +848,56 @@ const skillFiles: Record<string, Record<string, { text: string; size: number; sh
       text: 'Summarize the request, the audience, and the decisions needed.\n',
       size: 190,
       sha256: makeHash('j'),
+    },
+  },
+  'skillVersions:trello-100': {
+    'SKILL.md': { text: skillReadmes['skillVersions:trello-100'], size: 340, sha256: makeHash('ta') },
+  },
+  'skillVersions:slack-100': {
+    'SKILL.md': { text: skillReadmes['skillVersions:slack-100'], size: 396, sha256: makeHash('tb') },
+  },
+  'skillVersions:caldav-calendar-100': {
+    'SKILL.md': {
+      text: skillReadmes['skillVersions:caldav-calendar-100'],
+      size: 364,
+      sha256: makeHash('tc'),
+    },
+  },
+  'skillVersions:answer-overflow-100': {
+    'SKILL.md': {
+      text: skillReadmes['skillVersions:answer-overflow-100'],
+      size: 352,
+      sha256: makeHash('td'),
+    },
+  },
+  'skillVersions:ontology-100': {
+    'SKILL.md': { text: skillReadmes['skillVersions:ontology-100'], size: 388, sha256: makeHash('te') },
+  },
+  'skillVersions:self-improving-proactive-agent-100': {
+    'SKILL.md': {
+      text: skillReadmes['skillVersions:self-improving-proactive-agent-100'],
+      size: 436,
+      sha256: makeHash('tf'),
+    },
+  },
+  'skillVersions:admapix-100': {
+    'SKILL.md': { text: skillReadmes['skillVersions:admapix-100'], size: 368, sha256: makeHash('tg') },
+  },
+  'skillVersions:obsidian-100': {
+    'SKILL.md': { text: skillReadmes['skillVersions:obsidian-100'], size: 332, sha256: makeHash('th') },
+  },
+  'skillVersions:nano-banana-pro-100': {
+    'SKILL.md': {
+      text: skillReadmes['skillVersions:nano-banana-pro-100'],
+      size: 344,
+      sha256: makeHash('ti'),
+    },
+  },
+  'skillVersions:baidu-web-search-100': {
+    'SKILL.md': {
+      text: skillReadmes['skillVersions:baidu-web-search-100'],
+      size: 330,
+      sha256: makeHash('tj'),
     },
   },
 }
