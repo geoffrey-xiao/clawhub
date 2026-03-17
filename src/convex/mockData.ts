@@ -172,15 +172,26 @@ const skillVersions = [
     ],
     parsed: {
       clawdis: {
-        os: ['macos', 'linux'],
+        emoji: '🧾',
+        requires: {
+          bins: ['blogwatcher'],
+        },
+        install: [
+          {
+            id: 'blogwatcher-go',
+            kind: 'go',
+            label: 'Install blogwatcher (go)',
+            bins: ['blogwatcher'],
+            module:
+              'github.com/Hyaxia/blogwatcher/cmd/blogwatcher@latest-with-an-intentionally-overlong-mock-module-path-for-install-card-overflow-regression-checks',
+          },
+        ],
         nix: {
           plugin: true,
           systems: ['x86_64-linux', 'aarch64-darwin'],
         },
         config: {
-          example: {
-            SONOS_HOST: '192.168.1.50',
-          },
+          example: '{ "SONOS_HOST": "192.168.1.50" }',
         },
         cliHelp: 'Use `play`, `pause`, `group`, and `volume` commands.',
       },

@@ -29,6 +29,11 @@
 - Coverage threshold: 80% global (lines/functions/branches/statements).
 - Example: `convex/lib/skills.test.ts`.
 
+## UI Validation Notes
+- Recent agent fixes have clustered around diff/Monaco styling regressions. When touching `src/styles.css` or diff/compare UI such as `src/components/SkillDiffCard.tsx`, verify both light and dark themes and the side-by-side diff scrollbar behavior before wrapping up.
+- For diff/compare fixes, keep `src/components/SkillDiffCard.test.tsx` aligned with the mounted-editor layout toggle behavior; recent regressions came from CSS/theme tweaks that did not re-check the existing side-by-side vs inline interaction.
+- For browser-visible UI changes, prefer a quick Playwright/manual smoke pass: `bun run test:e2e:local` for local preview, or `PLAYWRIGHT_BASE_URL=https://clawhub.ai bun run test:pw` when validating the deployed app.
+
 ## Commit & Pull Request Guidelines
 - Commit messages: Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`…).
 - Keep changes scoped; avoid repo-wide search/replace.
