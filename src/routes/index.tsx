@@ -111,7 +111,6 @@ function SkillsHome() {
                       user={entry.owner}
                       fallbackHandle={entry.ownerHandle ?? null}
                       prefix="by"
-                      link={false}
                     />
                     <div className="stat">
                       <SkillStatsTripletLine stats={entry.skill.stats} />
@@ -142,7 +141,6 @@ function SkillsHome() {
                       user={entry.owner}
                       fallbackHandle={entry.ownerHandle ?? null}
                       prefix="by"
-                      link={false}
                     />
                     <div className="stat">
                       <SkillStatsTripletLine stats={entry.skill.stats} />

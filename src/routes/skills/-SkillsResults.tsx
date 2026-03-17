@@ -64,7 +64,7 @@ export function SkillsResults({
                 summaryFallback="Agent-ready skill pack."
                 meta={
                   <div className="skill-card-footer-rows">
-                    <UserBadge user={entry.owner} fallbackHandle={ownerHandle} prefix="by" link={false} />
+                    <UserBadge user={entry.owner} fallbackHandle={ownerHandle} prefix="by" />
                     <div className="stat">
                       <SkillStatsTripletLine stats={skill.stats} />
                     </div>
@@ -101,7 +101,7 @@ export function SkillsResults({
                   </div>
                   <div className="skills-row-summary">{skill.summary ?? 'No summary provided.'}</div>
                   <div className="skills-row-owner">
-                    <UserBadge user={entry.owner} fallbackHandle={ownerHandle} prefix="by" link={false} />
+                    <UserBadge user={entry.owner} fallbackHandle={ownerHandle} prefix="by" />
                   </div>
                 </div>
                 <div className="skills-row-metrics">
