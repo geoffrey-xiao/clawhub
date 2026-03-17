@@ -279,30 +279,28 @@ export function Upload() {
       },
       {
         key: 'required-file',
-        label: hasRequiredFile ? `${requiredFileLabel} included.` : `${requiredFileLabel} is required.`,
+        label: hasRequiredFile
+          ? `${requiredFileLabel} included.`
+          : `Include ${requiredFileLabel} in the uploaded folder.`,
         passed: hasRequiredFile,
       },
       {
         key: 'file-types',
         label:
-          files.length === 0
-            ? 'Upload files to validate file types.'
-            : invalidFiles.length > 0
+          invalidFiles.length > 0
             ? `Remove non-text files: ${invalidFiles
                 .slice(0, 3)
                 .map((file) => file.name)
                 .join(', ')}`
-            : 'All selected files are text files.',
+            : 'Only text files are allowed.',
         passed: files.length > 0 && invalidFiles.length === 0,
       },
       {
         key: 'size',
         label:
-          files.length === 0
-            ? 'Upload files to validate total size.'
-            : totalBytes <= maxBytes
-              ? 'Total file size is within 50MB.'
-              : 'Total file size exceeds 50MB.',
+          totalBytes <= maxBytes
+            ? 'Total file size must stay within 50MB.'
+            : 'Total file size exceeds 50MB.',
         passed: files.length > 0 && totalBytes <= maxBytes,
       },
       {
