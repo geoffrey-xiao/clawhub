@@ -233,46 +233,85 @@ export function Upload() {
     [tags],
   )
   const validation = useMemo(() => {
-    const issues: string[] = []
-    if (!trimmedSlug) {
-      issues.push('Slug is required.')
-    } else if (!SLUG_PATTERN.test(trimmedSlug)) {
-      issues.push('Slug must be lowercase and use dashes only.')
-    }
-    if (!trimmedName) {
-      issues.push('Display name is required.')
-    }
-    if (!semver.valid(version)) {
-      issues.push('Version must be valid semver (e.g. 1.0.0).')
-    }
-    if (parsedTags.length === 0) {
-      issues.push('At least one tag is required.')
-    }
-    if (!isSoulMode && !acceptedLicenseTerms) {
-      issues.push('Accept the MIT-0 license terms to publish this skill.')
-    }
-    if (files.length === 0) {
-      issues.push('Add at least one file.')
-    }
-    if (!hasRequiredFile) {
-      issues.push(`${requiredFileLabel} is required.`)
-    }
     const invalidFiles = files.filter((file) => !isTextFile(file))
-    if (invalidFiles.length > 0) {
-      issues.push(
-        `Remove non-text files: ${invalidFiles
-          .slice(0, 3)
-          .map((file) => file.name)
-          .join(', ')}`,
-      )
-    }
-    if (totalBytes > maxBytes) {
-      issues.push('Total file size exceeds 50MB.')
-    }
-    if (slugCollision) {
-      issues.push(slugCollision.message)
-    }
+    const checks = [
+      {
+        key: 'slug',
+        label: trimmedSlug
+          ? SLUG_PATTERN.test(trimmedSlug)
+            ? 'Slug is valid.'
+            : 'Slug must be lowercase and use dashes only.'
+          : 'Slug is required.',
+        passed: Boolean(trimmedSlug) && SLUG_PATTERN.test(trimmedSlug),
+      },
+      {
+        key: 'display-name',
+        label: trimmedName ? 'Display name is set.' : 'Display name is required.',
+        passed: Boolean(trimmedName),
+      },
+      {
+        key: 'version',
+        label: semver.valid(version)
+          ? 'Version is valid semver.'
+          : 'Version must be valid semver (e.g. 1.0.0).',
+        passed: Boolean(semver.valid(version)),
+      },
+      {
+        key: 'tags',
+        label: parsedTags.length > 0 ? 'At least one tag is set.' : 'At least one tag is required.',
+        passed: parsedTags.length > 0,
+      },
+      ...(!isSoulMode
+        ? [
+            {
+              key: 'license',
+              label: acceptedLicenseTerms
+                ? 'MIT-0 license terms accepted.'
+                : 'Accept the MIT-0 license terms to publish this skill.',
+              passed: acceptedLicenseTerms,
+            },
+          ]
+        : []),
+      {
+        key: 'files',
+        label: files.length > 0 ? 'At least one file added.' : 'Add at least one file.',
+        passed: files.length > 0,
+      },
+      {
+        key: 'required-file',
+        label: hasRequiredFile
+          ? `${requiredFileLabel} included.`
+          : `Include ${requiredFileLabel} in the uploaded folder.`,
+        passed: hasRequiredFile,
+      },
+      {
+        key: 'file-types',
+        label:
+          invalidFiles.length > 0
+            ? `Remove non-text files: ${invalidFiles
+                .slice(0, 3)
+                .map((file) => file.name)
+                .join(', ')}`
+            : 'Only text files are allowed.',
+        passed: files.length > 0 && invalidFiles.length === 0,
+      },
+      {
+        key: 'size',
+        label:
+          totalBytes <= maxBytes
+            ? 'Total file size must stay within 50MB.'
+            : 'Total file size exceeds 50MB.',
+        passed: files.length > 0 && totalBytes <= maxBytes,
+      },
+      {
+        key: 'slug-collision',
+        label: slugCollision ? slugCollision.message : 'Slug is available.',
+        passed: !slugCollision,
+      },
+    ]
+    const issues = checks.filter((check) => !check.passed).map((check) => check.label)
     return {
+      checks,
       issues,
       ready: issues.length === 0,
     }
@@ -515,15 +554,13 @@ export function Upload() {
 
         <div className="card upload-panel" ref={validationRef}>
           <h2 className="upload-panel-title">Validation</h2>
-          {validation.issues.length === 0 ? (
-            <div className="stat">All checks passed.</div>
-          ) : (
-            <ul className="validation-list">
-              {validation.issues.map((issue) => (
-                <li key={issue}>{issue}</li>
-              ))}
-            </ul>
-          )}
+          <ul className="validation-list">
+            {validation.checks.map((check) => (
+              <li key={check.key} className={check.passed ? 'is-valid' : 'is-invalid'}>
+                {check.label}
+              </li>
+            ))}
+          </ul>
           {slugCollision?.url ? (
             <div className="stat">
               Existing skill:{' '}

@@ -674,11 +674,64 @@ code {
 
 .validation-list {
   margin: 0;
-  padding-left: 18px;
+  padding: 0;
+  list-style: none;
   display: grid;
-  gap: 5px;
+  gap: 10px;
   color: var(--ink-soft);
   line-height: 1.45;
+}
+
+.validation-list li {
+  position: relative;
+  padding-left: 32px;
+}
+
+.validation-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.14em;
+  width: 20px;
+  height: 20px;
+  border-radius: 7px;
+  border: 2px solid rgba(230, 92, 70, 0.5);
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.validation-list li.is-valid {
+  color: var(--seafoam);
+}
+
+.validation-list li.is-valid::before {
+  content: '✓';
+  display: grid;
+  place-items: center;
+  font-size: 0.98rem;
+  line-height: 1;
+  color: var(--seafoam);
+  border-color: rgba(32, 158, 146, 0.42);
+  background: rgba(32, 158, 146, 0.1);
+}
+
+[data-theme="dark"] .validation-list li.is-valid {
+  color: #73d9cf;
+}
+
+[data-theme="dark"] .validation-list li.is-valid::before {
+  color: #73d9cf;
+  border-color: rgba(71, 195, 184, 0.46);
+  background: rgba(71, 195, 184, 0.14);
+}
+
+[data-theme="dark"] .validation-list li.is-invalid {
+  color: var(--ink-soft);
+}
+
+[data-theme="dark"] .validation-list li::before {
+  border-color: rgba(255, 131, 95, 0.56);
+  background: rgba(20, 36, 47, 0.78);
 }
 
 .upload-submit-row {
