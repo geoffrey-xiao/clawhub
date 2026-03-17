@@ -348,6 +348,14 @@ export function Upload() {
     setIgnoredMacJunkPaths(report.ignoredMacJunkPaths)
   }
 
+  function removeFileAt(index: number) {
+    setFiles((current) => current.filter((_, currentIndex) => currentIndex !== index))
+    setIgnoredMacJunkPaths([])
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
     setHasAttempted(true)
@@ -544,9 +552,17 @@ export function Upload() {
             {files.length === 0 ? (
               <div className="stat">No files selected.</div>
             ) : (
-              normalizedPaths.map((path) => (
+              normalizedPaths.map((path, index) => (
                 <div key={path} className="upload-file-row">
-                  <span>{path}</span>
+                  <span className="upload-file-path">{path}</span>
+                  <button
+                    type="button"
+                    className="upload-file-remove"
+                    onClick={() => removeFileAt(index)}
+                    aria-label={`Remove ${path}`}
+                  >
+                    Remove
+                  </button>
                 </div>
               ))
             )}

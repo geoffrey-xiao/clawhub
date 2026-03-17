@@ -655,6 +655,10 @@ code {
 }
 
 .upload-file-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
   font-family: var(--font-mono);
   font-size: 0.79rem;
   line-height: 1.45;
@@ -663,13 +667,42 @@ code {
   background: rgba(255, 255, 255, 0.55);
   padding: 6px 9px;
   overflow: hidden;
+}
+
+.upload-file-path {
+  min-width: 0;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.upload-file-remove {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: var(--accent-deep);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.upload-file-remove:hover {
+  text-decoration: underline;
+}
+
+.upload-file-remove:focus-visible {
+  outline: 2px solid rgba(230, 92, 70, 0.28);
+  outline-offset: 4px;
 }
 
 [data-theme="dark"] .upload-file-row {
   border-color: rgba(255, 131, 95, 0.2);
   background: rgba(20, 36, 47, 0.72);
+}
+
+[data-theme="dark"] .upload-file-remove {
+  color: #ffb39c;
 }
 
 .validation-list {
