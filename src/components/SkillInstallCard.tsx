@@ -168,11 +168,7 @@ export function SkillInstallCard({ clawdis, osLabels }: SkillInstallCardProps) {
                           Bins: {spec.bins.join(', ')}
                         </div>
                       ) : null}
-                      {command ? (
-                        <pre className="skill-install-command">
-                          <code>{command}</code>
-                        </pre>
-                      ) : null}
+                      {command ? <code className="skill-install-command">{command}</code> : null}
                     </div>
                   </div>
                 )
