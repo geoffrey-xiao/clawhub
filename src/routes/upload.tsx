@@ -305,8 +305,14 @@ export function Upload() {
       },
       {
         key: 'slug-collision',
-        label: slugCollision ? slugCollision.message : 'Slug is available.',
-        passed: !slugCollision,
+        label: !trimmedSlug
+          ? 'Enter a slug to check availability.'
+          : !SLUG_PATTERN.test(trimmedSlug)
+            ? 'Fix the slug format before checking availability.'
+            : slugCollision
+              ? slugCollision.message
+              : 'Slug is available.',
+        passed: Boolean(trimmedSlug) && SLUG_PATTERN.test(trimmedSlug) && !slugCollision,
       },
     ]
     const issues = checks.filter((check) => !check.passed).map((check) => check.label)
