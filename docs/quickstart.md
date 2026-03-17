@@ -27,6 +27,18 @@ bun run dev
 bunx convex dev
 ```
 
+## 1b) Local mock mode (no Convex/API)
+
+If you only need the frontend with local fixture data:
+
+```bash
+bun install
+cp .env.local.example .env.local
+# set VITE_USE_MOCK_DATA=1
+# VITE_CONVEX_URL can stay empty
+bun run dev
+```
+
 ## 2) Auth setup (GitHub OAuth + Convex Auth keys)
 
 Fill in `.env.local`:

@@ -1,9 +1,18 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { buildSkillMeta, buildSoulMeta, fetchSkillMeta, fetchSoulMeta } from './og'
 
+const env = import.meta.env as Record<string, unknown>
+const originalMockFlag = env.VITE_USE_MOCK_DATA
+
 describe('og helpers', () => {
   afterEach(() => {
     vi.restoreAllMocks()
+    vi.resetModules()
+    if (originalMockFlag === undefined) {
+      delete env.VITE_USE_MOCK_DATA
+    } else {
+      env.VITE_USE_MOCK_DATA = originalMockFlag
+    }
   })
 
   it('builds metadata with owner and summary', () => {
@@ -138,5 +147,30 @@ describe('og helpers', () => {
 
     const meta = await fetchSoulMeta('north-star')
     expect(meta).toBeNull()
+  })
+
+  it('uses local mock metadata instead of fetch when mock mode is enabled', async () => {
+    env.VITE_USE_MOCK_DATA = '1'
+    vi.resetModules()
+    const fetchMock = vi.fn()
+    vi.stubGlobal('fetch', fetchMock)
+
+    const { fetchSkillMeta: fetchMockSkillMeta, fetchSoulMeta: fetchMockSoulMeta } =
+      await import('./og')
+
+    await expect(fetchMockSkillMeta('shipwright')).resolves.toEqual({
+      displayName: 'Shipwright',
+      summary: 'Generate release notes, tags, and rollout checklists from a repo diff.',
+      owner: 'geoffrey',
+      ownerId: 'users:demo',
+      version: '2.0.1',
+    })
+    await expect(fetchMockSoulMeta('quiet-ops')).resolves.toEqual({
+      displayName: 'Quiet Ops',
+      summary: 'A calm, terse SOUL for execution-focused sessions.',
+      owner: 'geoffrey',
+      version: '1.1.0',
+    })
+    expect(fetchMock).not.toHaveBeenCalled()
   })
 })

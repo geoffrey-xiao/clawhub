@@ -110,12 +110,24 @@ bun run dev
 bunx convex run --no-push devSeed:seedNixSkills
 ```
 
+For offline UI work, enable the built-in mock registry instead of Convex:
+
+```bash
+cp .env.local.example .env.local
+# leave VITE_CONVEX_URL empty
+# set VITE_USE_MOCK_DATA=1
+bun run dev
+```
+
+Mock mode serves local fixture data for browsing skills, souls, and detail pages without the API.
+
 For full setup instructions (env vars, GitHub OAuth, JWT keys, database seeding), see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Environment
 
 - `VITE_CONVEX_URL`: Convex deployment URL (`https://<deployment>.convex.cloud`).
 - `VITE_CONVEX_SITE_URL`: Convex site URL (`https://<deployment>.convex.site`).
+- `VITE_USE_MOCK_DATA`: Set to `1` or `true` to run the app against built-in mock data with no Convex dependency.
 - `VITE_SOULHUB_SITE_URL`: onlycrabs.ai site URL (`https://onlycrabs.ai`).
 - `VITE_SOULHUB_HOST`: onlycrabs.ai host match (`onlycrabs.ai`).
 - `VITE_SITE_MODE`: Optional override (`skills` or `souls`) for SSR builds.

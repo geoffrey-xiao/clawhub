@@ -1,3 +1,4 @@
+import { getMockSkillMeta, getMockSoulMeta, mockModeEnabled } from '../convex/mockData'
 import { getClawHubSiteUrl, getOnlyCrabsSiteUrl } from './site'
 import { getRuntimeEnv } from './runtimeEnv'
 
@@ -53,6 +54,10 @@ export function getApiBase() {
 }
 
 export async function fetchSkillMeta(slug: string) {
+  if (mockModeEnabled) {
+    return getMockSkillMeta(slug)
+  }
+
   try {
     const apiBase = getApiBase()
     const url = new URL(`/api/v1/skills/${encodeURIComponent(slug)}`, apiBase)
@@ -76,6 +81,10 @@ export async function fetchSkillMeta(slug: string) {
 }
 
 export async function fetchSoulMeta(slug: string) {
+  if (mockModeEnabled) {
+    return getMockSoulMeta(slug)
+  }
+
   try {
     const apiBase = getApiBase()
     const url = new URL(`/api/v1/souls/${encodeURIComponent(slug)}`, apiBase)
