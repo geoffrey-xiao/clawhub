@@ -1969,13 +1969,6 @@ code {
   gap: 6px;
 }
 
-.skill-owner-tool-copy,
-.skill-owner-tool-note {
-  margin: 0;
-  color: var(--ink-soft);
-  line-height: 1.5;
-}
-
 .skill-owner-tool-preview {
   display: grid;
   gap: 4px;
@@ -1991,11 +1984,22 @@ code {
   overflow-wrap: anywhere;
 }
 
+.skill-owner-tool-note {
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
 .skill-owner-tool-action {
   display: grid;
-  gap: 12px;
-  align-self: stretch;
+  justify-items: start;
+  align-self: end;
   align-content: end;
+}
+
+.skill-owner-tool-footer {
+  grid-column: 1 / -1;
+  padding-top: 2px;
 }
 
 @media (max-width: 900px) {

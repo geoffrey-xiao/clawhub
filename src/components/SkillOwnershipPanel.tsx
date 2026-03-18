@@ -119,9 +119,6 @@ export function SkillOwnershipPanel({
           <label className="skill-owner-tool-main">
             <div className="skill-owner-tool-header">
               <span className="mono">rename slug</span>
-              <p className="skill-owner-tool-copy">
-                Changes the page path for this skill. Old slug stays as a redirect.
-              </p>
             </div>
             <input
               className="management-field"
@@ -141,7 +138,6 @@ export function SkillOwnershipPanel({
             </div>
           </label>
           <div className="skill-owner-tool-action">
-            <span className="skill-owner-tool-note">Old slug stays as a redirect.</span>
             <button
               className="btn btn-primary management-action-btn"
               type="button"
@@ -157,9 +153,6 @@ export function SkillOwnershipPanel({
           <label className="skill-owner-tool-main">
             <div className="skill-owner-tool-header">
               <span className="mono">merge into</span>
-              <p className="skill-owner-tool-copy">
-                Moves this page under another skill you own and redirects visitors to that target.
-              </p>
             </div>
             <select
               className="management-field"
@@ -180,10 +173,6 @@ export function SkillOwnershipPanel({
             </div>
           </label>
           <div className="skill-owner-tool-action">
-            <span className="skill-owner-tool-note">
-              Merge keeps the target live and hides this row. Versions and stats stay on the
-              original records for now.
-            </span>
             <button
               className="btn management-action-btn"
               type="button"
@@ -192,6 +181,12 @@ export function SkillOwnershipPanel({
             >
               Merge listing
             </button>
+          </div>
+          <div className="skill-owner-tool-footer">
+            <span className="skill-owner-tool-note">
+              After merge: the target stays live, this listing is hidden, and versions/stats stay
+              on the original records for now.
+            </span>
           </div>
         </div>
       </div>
