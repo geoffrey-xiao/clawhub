@@ -114,64 +114,91 @@ export function SkillOwnershipPanel({
         redirects and stop polluting search/list views.
       </p>
 
-      <div className="skill-owner-tools-grid">
-        <label className="management-control management-control-stack">
-          <span className="mono">rename slug</span>
-          <input
-            className="management-field"
-            value={renameSlug}
-            onChange={(event) => setRenameSlug(event.target.value)}
-            placeholder="new-slug"
-            autoComplete="off"
-            spellCheck={false}
-          />
-          <span className="section-subtitle">Current page: {ownerHref(slug)}</span>
-        </label>
-        <div className="management-control management-control-stack">
-          <span className="mono">rename action</span>
-          <button
-            className="btn management-action-btn"
-            type="button"
-            onClick={() => void handleRename()}
-            disabled={isSubmitting || renameSlug.trim().toLowerCase() === slug}
-          >
-            Rename and redirect
-          </button>
+      <div className="skill-owner-tools-list">
+        <div className="skill-owner-tool-row">
+          <label className="skill-owner-tool-main">
+            <div className="skill-owner-tool-header">
+              <span className="skill-owner-tool-kicker">Action 1</span>
+              <h3 className="skill-owner-tool-title">Rename listing URL</h3>
+              <p className="skill-owner-tool-copy">
+                Change the public path for this listing. The old slug will keep redirecting.
+              </p>
+            </div>
+            <input
+              className="management-field"
+              value={renameSlug}
+              onChange={(event) => setRenameSlug(event.target.value)}
+              placeholder="new-slug"
+              autoComplete="off"
+              spellCheck={false}
+            />
+            <div className="skill-owner-tool-preview">
+              <span className="mono">Current page</span>
+              <strong>{ownerHref(slug)}</strong>
+            </div>
+            <div className="skill-owner-tool-preview">
+              <span className="mono">Result</span>
+              <strong>{ownerHref(renameSlug.trim().toLowerCase() || slug)}</strong>
+            </div>
+          </label>
+          <div className="skill-owner-tool-action">
+            <span className="skill-owner-tool-note">Updates the canonical slug and keeps redirects working.</span>
+            <button
+              className="btn btn-primary management-action-btn"
+              type="button"
+              onClick={() => void handleRename()}
+              disabled={isSubmitting || renameSlug.trim().toLowerCase() === slug}
+            >
+              Apply rename
+            </button>
+          </div>
         </div>
-        <label className="management-control management-control-stack">
-          <span className="mono">merge into</span>
-          <select
-            className="management-field"
-            value={mergeTargetSlug}
-            onChange={(event) => setMergeTargetSlug(event.target.value)}
-            disabled={ownedSkills.length === 0 || isSubmitting}
-          >
-            {ownedSkills.length === 0 ? <option value="">No other owned skills</option> : null}
-            {ownedSkills.map((entry) => (
-              <option key={entry._id} value={entry.slug}>
-                {entry.displayName} ({entry.slug})
-              </option>
-            ))}
-          </select>
-        </label>
-        <div className="management-control management-control-stack">
-          <span className="mono">merge action</span>
-          <button
-            className="btn management-action-btn"
-            type="button"
-            onClick={() => void handleMerge()}
-            disabled={isSubmitting || !mergeTargetSlug}
-          >
-            Merge into target
-          </button>
+
+        <div className="skill-owner-tool-row">
+          <label className="skill-owner-tool-main">
+            <div className="skill-owner-tool-header">
+              <span className="skill-owner-tool-kicker">Action 2</span>
+              <h3 className="skill-owner-tool-title">Merge this listing into another one</h3>
+              <p className="skill-owner-tool-copy">
+                Fold this listing into another skill you own and keep the target page live.
+              </p>
+            </div>
+            <select
+              className="management-field"
+              value={mergeTargetSlug}
+              onChange={(event) => setMergeTargetSlug(event.target.value)}
+              disabled={ownedSkills.length === 0 || isSubmitting}
+            >
+              {ownedSkills.length === 0 ? <option value="">No other owned skills</option> : null}
+              {ownedSkills.map((entry) => (
+                <option key={entry._id} value={entry.slug}>
+                  {entry.displayName} ({entry.slug})
+                </option>
+              ))}
+            </select>
+            <div className="skill-owner-tool-preview">
+              <span className="mono">Target page</span>
+              <strong>{mergeTargetSlug ? ownerHref(mergeTargetSlug) : 'Pick a target skill'}</strong>
+            </div>
+          </label>
+          <div className="skill-owner-tool-action">
+            <span className="skill-owner-tool-note">
+              This page will redirect to the target. Versions and stats stay on the original
+              records for now.
+            </span>
+            <button
+              className="btn management-action-btn"
+              type="button"
+              onClick={() => void handleMerge()}
+              disabled={isSubmitting || !mergeTargetSlug}
+            >
+              Merge listing
+            </button>
+          </div>
         </div>
       </div>
 
       {error ? <div className="stat" style={{ color: 'var(--danger)' }}>{error}</div> : null}
-      <div className="section-subtitle">
-        Merge keeps the target live and hides this row. Versions and stats stay on the original
-        records for now.
-      </div>
     </div>
   )
 }
