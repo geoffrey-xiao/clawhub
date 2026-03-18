@@ -118,11 +118,8 @@ export function SkillOwnershipPanel({
         <div className="skill-owner-tool-row">
           <label className="skill-owner-tool-main">
             <div className="skill-owner-tool-header">
-              <span className="skill-owner-tool-kicker">Action 1</span>
+              <span className="mono">rename slug</span>
               <h3 className="skill-owner-tool-title">Rename listing URL</h3>
-              <p className="skill-owner-tool-copy">
-                Change the public path for this listing. The old slug will keep redirecting.
-              </p>
             </div>
             <input
               className="management-field"
@@ -133,16 +130,16 @@ export function SkillOwnershipPanel({
               spellCheck={false}
             />
             <div className="skill-owner-tool-preview">
-              <span className="mono">Current page</span>
+              <span className="mono">current page</span>
               <strong>{ownerHref(slug)}</strong>
             </div>
             <div className="skill-owner-tool-preview">
-              <span className="mono">Result</span>
+              <span className="mono">after rename</span>
               <strong>{ownerHref(renameSlug.trim().toLowerCase() || slug)}</strong>
             </div>
           </label>
           <div className="skill-owner-tool-action">
-            <span className="skill-owner-tool-note">Updates the canonical slug and keeps redirects working.</span>
+            <span className="skill-owner-tool-note">Old slug stays as a redirect.</span>
             <button
               className="btn btn-primary management-action-btn"
               type="button"
@@ -157,11 +154,8 @@ export function SkillOwnershipPanel({
         <div className="skill-owner-tool-row">
           <label className="skill-owner-tool-main">
             <div className="skill-owner-tool-header">
-              <span className="skill-owner-tool-kicker">Action 2</span>
-              <h3 className="skill-owner-tool-title">Merge this listing into another one</h3>
-              <p className="skill-owner-tool-copy">
-                Fold this listing into another skill you own and keep the target page live.
-              </p>
+              <span className="mono">merge into</span>
+              <h3 className="skill-owner-tool-title">Merge into another owned skill</h3>
             </div>
             <select
               className="management-field"
@@ -177,14 +171,14 @@ export function SkillOwnershipPanel({
               ))}
             </select>
             <div className="skill-owner-tool-preview">
-              <span className="mono">Target page</span>
+              <span className="mono">target page</span>
               <strong>{mergeTargetSlug ? ownerHref(mergeTargetSlug) : 'Pick a target skill'}</strong>
             </div>
           </label>
           <div className="skill-owner-tool-action">
             <span className="skill-owner-tool-note">
-              This page will redirect to the target. Versions and stats stay on the original
-              records for now.
+              Merge keeps the target live and hides this row. Versions and stats stay on the
+              original records for now.
             </span>
             <button
               className="btn management-action-btn"
