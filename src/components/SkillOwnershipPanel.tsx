@@ -119,7 +119,9 @@ export function SkillOwnershipPanel({
           <label className="skill-owner-tool-main">
             <div className="skill-owner-tool-header">
               <span className="mono">rename slug</span>
-              <h3 className="skill-owner-tool-title">Rename listing URL</h3>
+              <p className="skill-owner-tool-copy">
+                Changes the page path for this skill. Old slug stays as a redirect.
+              </p>
             </div>
             <input
               className="management-field"
@@ -155,7 +157,9 @@ export function SkillOwnershipPanel({
           <label className="skill-owner-tool-main">
             <div className="skill-owner-tool-header">
               <span className="mono">merge into</span>
-              <h3 className="skill-owner-tool-title">Merge into another owned skill</h3>
+              <p className="skill-owner-tool-copy">
+                Moves this page under another skill you own and redirects visitors to that target.
+              </p>
             </div>
             <select
               className="management-field"
