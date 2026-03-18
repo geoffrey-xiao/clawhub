@@ -417,6 +417,78 @@ const skillM = {
   updatedAt: now - 1000 * 60 * 60 * 24 * 2,
 } as unknown as PublicSkill
 
+const skillN = {
+  _id: 'skills:repo-radar' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 16,
+  slug: 'repo-radar',
+  displayName: 'Repo Radar',
+  summary:
+    'Scan repository activity, PR churn, and release readiness signals before a weekly engineering review.',
+  ownerUserId: demoUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:repo-radar-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:repo-radar-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(6200, 74, 1, 2100),
+  createdAt: now - 1000 * 60 * 60 * 24 * 16,
+  updatedAt: now - 1000 * 60 * 60 * 24 * 2,
+} as unknown as PublicSkill
+
+const skillO = {
+  _id: 'skills:prompt-linter' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 14,
+  slug: 'prompt-linter',
+  displayName: 'Prompt Linter',
+  summary:
+    'Review prompts for ambiguity, missing constraints, and weak output contracts before they reach production.',
+  ownerUserId: demoUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:prompt-linter-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:prompt-linter-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(4700, 96, 1, 1800),
+  createdAt: now - 1000 * 60 * 60 * 24 * 14,
+  updatedAt: now - 1000 * 60 * 60 * 18,
+} as unknown as PublicSkill
+
+const skillP = {
+  _id: 'skills:incident-scribe' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 11,
+  slug: 'incident-scribe',
+  displayName: 'Incident Scribe',
+  summary:
+    'Draft incident timelines, status updates, and postmortem sections from raw notes, logs, and Slack context.',
+  ownerUserId: demoUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:incident-scribe-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:incident-scribe-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(3900, 58, 1, 1440),
+  createdAt: now - 1000 * 60 * 60 * 24 * 11,
+  updatedAt: now - 1000 * 60 * 60 * 24,
+} as unknown as PublicSkill
+
+const skillQ = {
+  _id: 'skills:spec-forge' as Id<'skills'>,
+  _creationTime: now - 1000 * 60 * 60 * 24 * 9,
+  slug: 'spec-forge',
+  displayName: 'Spec Forge',
+  summary:
+    'Turn product notes and issue threads into implementation-ready specs with assumptions, edge cases, and acceptance criteria.',
+  ownerUserId: demoUser._id,
+  canonicalSkillId: undefined,
+  forkOf: undefined,
+  latestVersionId: 'skillVersions:spec-forge-100' as Id<'skillVersions'>,
+  tags: { latest: 'skillVersions:spec-forge-100' as Id<'skillVersions'> },
+  badges: {},
+  stats: makeSkillStats(5100, 121, 1, 2200),
+  createdAt: now - 1000 * 60 * 60 * 24 * 9,
+  updatedAt: now - 1000 * 60 * 60 * 12,
+} as unknown as PublicSkill
+
 const mockSkills = [
   skillA,
   skillB,
@@ -431,6 +503,10 @@ const mockSkills = [
   skillK,
   skillL,
   skillM,
+  skillN,
+  skillO,
+  skillP,
+  skillQ,
 ]
 
 const skillVersions = [
@@ -701,6 +777,58 @@ const skillVersions = [
     changelogSource: 'user',
     files: [{ path: 'SKILL.md', size: 330, storageId: 'storage:baidu-skill', sha256: makeHash('tj') }],
   },
+  {
+    _id: 'skillVersions:repo-radar-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24 * 2,
+    skillId: skillN._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24 * 2,
+    changelog: 'Initial repo review workflow release.',
+    changelogSource: 'user',
+    files: [
+      { path: 'SKILL.md', size: 376, storageId: 'storage:repo-radar-skill', sha256: makeHash('tk') },
+      { path: 'templates/weekly-review.md', size: 224, storageId: 'storage:repo-radar-review', sha256: makeHash('tl') },
+    ],
+  },
+  {
+    _id: 'skillVersions:prompt-linter-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 18,
+    skillId: skillO._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 18,
+    changelog: 'Initial prompt review release.',
+    changelogSource: 'user',
+    files: [
+      { path: 'SKILL.md', size: 358, storageId: 'storage:prompt-linter-skill', sha256: makeHash('tm') },
+      { path: 'checks/rubric.md', size: 204, storageId: 'storage:prompt-linter-rubric', sha256: makeHash('tn') },
+    ],
+  },
+  {
+    _id: 'skillVersions:incident-scribe-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 24,
+    skillId: skillP._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 24,
+    changelog: 'Initial incident documentation release.',
+    changelogSource: 'user',
+    files: [
+      { path: 'SKILL.md', size: 392, storageId: 'storage:incident-scribe-skill', sha256: makeHash('to') },
+      { path: 'templates/postmortem.md', size: 246, storageId: 'storage:incident-scribe-template', sha256: makeHash('tp') },
+    ],
+  },
+  {
+    _id: 'skillVersions:spec-forge-100' as Id<'skillVersions'>,
+    _creationTime: now - 1000 * 60 * 60 * 12,
+    skillId: skillQ._id,
+    version: '1.0.0',
+    createdAt: now - 1000 * 60 * 60 * 12,
+    changelog: 'Initial specification drafting release.',
+    changelogSource: 'user',
+    files: [
+      { path: 'SKILL.md', size: 410, storageId: 'storage:spec-forge-skill', sha256: makeHash('tq') },
+      { path: 'references/acceptance.md', size: 232, storageId: 'storage:spec-forge-acceptance', sha256: makeHash('tr') },
+    ],
+  },
 ] as Doc<'skillVersions'>[]
 
 const soulA = {
@@ -805,6 +933,10 @@ Turn commits into release notes, rollout steps, and stakeholder updates.
   'skillVersions:obsidian-100': '# Obsidian\n\nRead and update local Markdown notes in an Obsidian vault.\n',
   'skillVersions:nano-banana-pro-100': '# Nano Banana Pro\n\nGenerate and edit images through a structured prompt workflow.\n',
   'skillVersions:baidu-web-search-100': '# baidu web search\n\nUse Baidu AI Search Engine for current web information and references.\n',
+  'skillVersions:repo-radar-100': '# Repo Radar\n\nReview repository health, PR throughput, and release readiness before a weekly engineering sync.\n',
+  'skillVersions:prompt-linter-100': '# Prompt Linter\n\nAudit prompts for ambiguity, missing constraints, and weak expected-output contracts.\n',
+  'skillVersions:incident-scribe-100': '# Incident Scribe\n\nTurn notes, logs, and chat excerpts into clean incident timelines and postmortem drafts.\n',
+  'skillVersions:spec-forge-100': '# Spec Forge\n\nConvert issue threads and rough product notes into implementation-ready specifications.\n',
 }
 
 const skillFiles: Record<string, Record<string, { text: string; size: number; sha256: string }>> = {
@@ -898,6 +1030,50 @@ const skillFiles: Record<string, Record<string, { text: string; size: number; sh
       text: skillReadmes['skillVersions:baidu-web-search-100'],
       size: 330,
       sha256: makeHash('tj'),
+    },
+  },
+  'skillVersions:repo-radar-100': {
+    'SKILL.md': { text: skillReadmes['skillVersions:repo-radar-100'], size: 376, sha256: makeHash('tk') },
+    'templates/weekly-review.md': {
+      text: '## Weekly Review\n\n- PRs at risk\n- Hot spots\n- Release blockers\n- Follow-up actions\n',
+      size: 224,
+      sha256: makeHash('tl'),
+    },
+  },
+  'skillVersions:prompt-linter-100': {
+    'SKILL.md': {
+      text: skillReadmes['skillVersions:prompt-linter-100'],
+      size: 358,
+      sha256: makeHash('tm'),
+    },
+    'checks/rubric.md': {
+      text: '- Goal is explicit\n- Inputs are bounded\n- Output shape is specified\n- Failure mode is defined\n',
+      size: 204,
+      sha256: makeHash('tn'),
+    },
+  },
+  'skillVersions:incident-scribe-100': {
+    'SKILL.md': {
+      text: skillReadmes['skillVersions:incident-scribe-100'],
+      size: 392,
+      sha256: makeHash('to'),
+    },
+    'templates/postmortem.md': {
+      text: '## Impact\n\n## Timeline\n\n## Root Cause\n\n## Corrective Actions\n',
+      size: 246,
+      sha256: makeHash('tp'),
+    },
+  },
+  'skillVersions:spec-forge-100': {
+    'SKILL.md': {
+      text: skillReadmes['skillVersions:spec-forge-100'],
+      size: 410,
+      sha256: makeHash('tq'),
+    },
+    'references/acceptance.md': {
+      text: 'Acceptance criteria should be observable, testable, and free of hidden assumptions.\n',
+      size: 232,
+      sha256: makeHash('tr'),
     },
   },
 }
