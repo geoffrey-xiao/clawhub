@@ -16,6 +16,7 @@
 - `bun run lint` — Biome + oxlint (type-aware).
 - `bun run test` — Vitest (unit tests).
 - `bun run coverage` — coverage run; keep global >= 80%.
+- For frontend-only iteration, prefer local mock mode (`VITE_USE_MOCK_DATA=1`) before wiring up Convex/Auth; see `docs/quickstart.md`.
 
 ## Coding Style & Naming Conventions
 - TypeScript strict; ESM.
@@ -67,6 +68,7 @@
 - **32K document limit per query.** Split `.collect()` calls by a partition field (e.g., one day at a time instead of a 7-day range). See `rebuildTrendingLeaderboardAction` in `convex/leaderboards.ts` for an example.
 - **Common mistakes**: `.filter().collect()` without an index; `ctx.db.get()` on large docs in a loop for list views; while loops that paginate the whole table to find filtered results.
 - **Before writing or reviewing Convex queries, check deployment health.** Run `bunx convex insights` to check for OCC conflicts, `bytesReadLimit`, and `documentsReadLimit` errors. Run `bunx convex logs --failure` to see individual error messages and stack traces. This helps identify which functions are causing bandwidth issues so you can prioritize fixes.
+- Public browse contract changes must update every one-shot consumer and its mocks together: `src/routes/index.tsx`, `src/routes/skills/-useSkillsBrowseModel.ts`, and `src/__tests__/helpers/convexReactMocks.ts` / browse route tests.
 
 ## Convex Conventions
 - Mutations should import from `convex/functions.ts`, not `convex/_generated/server`, so trigger wrappers stay applied. Type imports can still come from `convex/_generated/server`.
